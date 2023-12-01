@@ -47,7 +47,7 @@ export const Home = () => {
             </Button.Group>
 
             {isLoadingMovies || isLoadingTvShows ? (
-                <div>Loading...</div>
+                <div style={{marginTop: 50, fontSize: 30}}>Loading...</div>
             ) : (
                 <div style={{marginTop: 20}}>
                     {dysplayType === DisplayType.Movies ? (
