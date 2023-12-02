@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {useMutation} from "@tanstack/react-query";
-import {Grid, Card, Form} from "semantic-ui-react";
+import {Grid, Card, Form, Label} from "semantic-ui-react";
 import {toast} from "react-toastify";
 import "react-toastify/ReactToastify.css";
 
@@ -16,15 +16,17 @@ interface DisplayData {
     name?: string;
     vote_average: number;
     release_date: string;
+    rating?: number;
 }
 
 interface Props {
     data: DisplayData[];
     displayType: DisplayType;
+    isRated?: boolean;
 }
 
 export const ColumnDisplay = (props: Props) => {
-    const {data, displayType} = props;
+    const {data, displayType, isRated} = props;
     const [rating, setRating] = useState<number>(0);
 
     const onSuccess = () => {
@@ -38,14 +40,14 @@ export const ColumnDisplay = (props: Props) => {
 
     const {mutate: rateMovieMutation} = useMutation({
         mutationKey: ["rateMovie"],
-        mutationFn: (id: number) => rateMovie(id, rating),
+        mutationFn: async (id: number) => rateMovie(id, rating),
         onSuccess,
         onError,
     });
 
     const {mutate: rateTvShowMutation} = useMutation({
         mutationKey: ["rateTvShow"],
-        mutationFn: (id: number) => rateTvShow(id, rating),
+        mutationFn: async (id: number) => rateTvShow(id, rating),
         onSuccess,
         onError,
     });
@@ -74,6 +76,7 @@ export const ColumnDisplay = (props: Props) => {
                             }/${displayData.id}`}
                         >
                             <Card
+                                style={{height: 740}}
                                 fluid
                                 image={`http://image.tmdb.org/t/p/original/${displayData.poster_path}`}
                                 header={
@@ -90,6 +93,11 @@ export const ColumnDisplay = (props: Props) => {
                                     displayData.overview.slice(0, 350) + "..."
                                 }
                             />
+                            {isRated && (
+                                <Label color="green">
+                                    Your Rating: {displayData.rating}
+                                </Label>
+                            )}
                         </Link>
                         <Form style={{marginTop: 10}}>
                             <Form.Group inline>
