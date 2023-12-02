@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {Button} from "semantic-ui-react";
+import {Navigate} from "react-router-dom";
 
 import {fetchMovies, fetchTvShows} from "./query";
 
@@ -24,6 +25,10 @@ export const Home = () => {
         queryKey: ["tvshows"],
         queryFn: fetchTvShows,
     });
+
+    if (localStorage.getItem("guest_session_id") === null) {
+        return <Navigate to="/auth" />;
+    }
 
     return (
         <div style={{marginTop: 50, height: "auto"}}>
