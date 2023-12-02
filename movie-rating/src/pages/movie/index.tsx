@@ -1,4 +1,12 @@
-import {Segment, Header, Loader, Grid, Image, List} from "semantic-ui-react";
+import {
+    Segment,
+    Header,
+    Loader,
+    Grid,
+    Image,
+    List,
+    Label,
+} from "semantic-ui-react";
 import {useQuery} from "@tanstack/react-query";
 import {useParams} from "react-router-dom";
 
@@ -69,9 +77,9 @@ export const Movie = () => {
                                 <List.Item>
                                     <List.Header>Genres: </List.Header>
                                     {data.genres.map((genre: any) => (
-                                        <List.Item key={genre.id}>
+                                        <Label key={genre.id}>
                                             {genre.name}
-                                        </List.Item>
+                                        </Label>
                                     ))}
                                 </List.Item>
                                 <List.Item>
