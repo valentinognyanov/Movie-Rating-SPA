@@ -10,12 +10,15 @@ export const rateMovie = async (movieId: number, rating: number) => {
         body: `{"value":${rating}}`,
     };
 
-    const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieId}/rating`,
+    return await fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}/rating?guest_session_id=${localStorage.getItem(
+            "guest_session_id"
+        )}`,
         options
-    );
-
-    return res.json();
+    )
+        .then((response) => response.json())
+        .then((response) => console.log(response))
+        .catch((err) => console.error(err));
 };
 
 export const rateTvShow = async (tvShowId: number, rating: number) => {
@@ -31,7 +34,9 @@ export const rateTvShow = async (tvShowId: number, rating: number) => {
     };
 
     const res = await fetch(
-        `https://api.themoviedb.org/3/tv/${tvShowId}/rating`,
+        `https://api.themoviedb.org/3/tv/${tvShowId}/rating?guest_session_id=${localStorage.getItem(
+            "guest_session_id"
+        )}`,
         options
     );
 
