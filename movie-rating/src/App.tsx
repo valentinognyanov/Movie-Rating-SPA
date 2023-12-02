@@ -5,6 +5,7 @@ import {Home} from "./pages/home";
 import {Auth} from "./pages/auth";
 import {Movie} from "./pages/movie";
 import {TvShow} from "./pages/tvshow";
+import {Rated} from "./pages/rated/index";
 
 import "./App.css";
 
@@ -16,7 +17,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/auth" element={<Auth />} />
-                    <Route path="/rated" element={<h1>Rated</h1>} />
+                    <Route path="/rated" element={<Rated />} />
                     <Route path="/movie/:id" element={<Movie />} />
                     <Route path="/tvshow/:id" element={<TvShow />} />
                 </Routes>
